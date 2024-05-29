@@ -1,1 +1,63 @@
 
+Modelagem de Dados
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+#idades e salários
+idades = [20, 20, 24, 25, 30, 31, 33, 35]
+salarios = [1000, 1000, 1500, 2000, 3000, 3000, 2500, 4000]
+
+#DataFrame
+dados = pd.DataFrame({
+    'Idades': idades,
+    'Salario': salarios
+})
+
+# Calcule as estatísticas descritivas
+media = dados['Idades'].mean()
+mediana = dados['Idades'].median()
+desvio_padrao = dados['Idades'].std()
+
+# Imprima os resultados
+print(f'Média: {media:.2f}, Mediana: {mediana:.2f}, Desvio Padrão: {desvio_padrao:.2f}')
+
+# Identificar padrões na coluna 'Idades'
+print("Tendência nas Idades:")
+print(dados['Idades'].value_counts())
+
+# padrões na coluna 'Salario'
+print("\nTendência nos Salários:")
+print(dados['Salario'].value_counts())
+
+# Gráfico de dispersão com Seaborn
+sns.scatterplot(x='Idades', y='Salario', data=dados)
+plt.xlabel('Idades')
+plt.ylabel('Salário')
+plt.title('Gráfico de Dispersão: Idades vs Salário')
+plt.show()
+
+Média: 27.25, Mediana: 27.50, Desvio Padrão: 5.80
+Tendência nas Idades:
+Idades
+20    2
+24    1
+25    1
+30    1
+31    1
+33    1
+35    1
+Name: count, dtype: int64
+
+Tendência nos Salários:
+Salario
+1000    2
+3000    2
+1500    1
+2000    1
+2500    1
+4000    1
+Name: count, dtype: int64
+
+
