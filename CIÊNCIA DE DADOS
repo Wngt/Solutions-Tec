@@ -1,1 +1,31 @@
 
+Ciência de dados
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+
+#dados
+idades_novas = [20, 20, 24, 25, 30, 31, 33, 35]
+salario_novo = [1000, 1000, 1500, 2000, 3000, 3000, 2500, 4000]
+
+#DataFrame
+df_novo = pd.DataFrame({'Idades': idades_novas, 'Salario': salario_novo})
+
+#coluna de 1s para a constante do modelo
+X_novo = sm.add_constant(df_novo['Idades'])
+modelo_novo = sm.OLS(df_novo['Salario'], X_novo)
+resultados_novos = modelo_novo.fit()
+
+# Obtendo os coeficientes
+coef_constante_novo, coef_idades_novo = resultados_novos.params
+
+# Plotando os novos dados e a nova linha de regressão
+plt.scatter(df_novo['Idades'], df_novo['Salario'], label='Novos Dados')
+plt.plot(df_novo['Idades'], coef_constante_novo + coef_idades_novo * df_novo['Idades'], color='green', label='Nova Regressão Linear')
+plt.xlabel('Idades')
+plt.ylabel('Salario')
+plt.title('Nova Regressão Linear: Salario vs. Idades')
+plt.legend()
+plt.show()
+
