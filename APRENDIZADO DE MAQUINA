@@ -1,1 +1,66 @@
+Solutions Tec
+Implementação de Modelos de Aprendizado de Máquina
+
+Algoritimo de Machine e Learn (ML) usado na empresa:
+•	Regressão Linear (Modelo Supervisionado)
+
+Regressão Linear:
+Utilizando o modelo lógico de Regressão Linear formulado com margem de erro quase nulo, podemos afirmar que a empresa obteve uma margem de lucros significante maior que a margem de gastos no ano vigente. Considerando a compra de produtos para abastecimento do estoque, pagamento de funcionários,impostos e outros afins que são de total responsabilidade e confiabilidade cabíveis ao financeiro da empresa. 
+
+Valores abaixo na tabela a seguir:
+
+
+ 
+Erro Médio Absoluto (MAE): 50966.660005188656
+Erro Quadrático Médio (MSE): 4830762847.990561
+Raiz do Erro Quadrático Médio (RMSE): 69503.68945596025
+R-quadrado (R²): 0.6502334761951298
+
+
+
+Còdigo utilizado abaixo:
+import pandas aspd
+importmatplotlib.pyplotasplt
+fromsklearn.model_selectionimporttrain_test_split
+fromsklearn.linear_modelimportLinearRegression
+fromsklearn.metricsimportmean_absolute_error, mean_squared_error, r2_score
+
+# Carregando o conjunto de dados
+data = pd.read_csv("sample_data/california_housing_train.csv")
+
+# Definindo as variáveis de entrada (features) e a variável de saída (target)
+X = data.drop(columns=['median_house_value'])  # Features
+y = data['median_house_value']  # Target
+
+# Dividindo os dados em conjuntos de treinamento e validação (70% para treinamento, 30% para validação)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Criando uma instância do modelo de regressão linear
+model = LinearRegression()
+
+# Treinando o modelo com os dados de treinamento
+model.fit(X_train, y_train)
+
+# Fazendo previsões com os dados de validação
+predictions = model.predict(X_val)
+
+# Calculando as métricas
+mae = mean_absolute_error(y_val, predictions)
+mse = mean_squared_error(y_val, predictions)
+rmse = mean_squared_error(y_val, predictions, squared=False)  # Calculando RMSE a partir do MSE
+r2 = r2_score(y_val, predictions)
+
+# Exibindo as métricas
+print("Erro Médio Absoluto (MAE):", mae)
+print("Erro Quadrático Médio (MSE):", mse)
+print("Raiz do Erro Quadrático Médio (RMSE):", rmse)
+print("R-quadrado (R²):", r2)
+
+# Plotando as previsões em comparação com os valores reais
+plt.figure(figsize=(10, 6))
+plt.scatter(y_val, predictions, color='blue', alpha=0.5)
+plt.plot([y_val.min(), y_val.max()], [y_val.min(), y_val.max()], 'k--', lw=2)
+plt.xlabel('Gastos Anual')
+plt.ylabel('Lucros Anual ')
+plt.title('Gastos Anual vs Lucros Anual')plt.show()
 
